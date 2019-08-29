@@ -1,0 +1,35 @@
+.JokeList {
+    display: flex;
+    width: 80%;
+    height: 80%;
+}
+
+.JokeList-sidebar {
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    min-width: 30%;
+    text-align: center;
+}
+
+.JokeList-title {
+    font-size: 4rem;
+    margin: 2rem;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 300;
+    letter-spacing: 0.6rem;
+}
+
+.JokeList-title span {
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.JokeList-jokes {
+    height: 90%;
+    background-color: rgba(255, 255, 255, 1);
+    align-self: center;
+    overflow: scroll;
+}
