@@ -13,6 +13,7 @@ class JokeList extends Component {
     constructor(props) {
         super(props);
         this.state = { jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]")};
+        this.handleClick = this.handleClick.bind(this);
     }
 
     async getJokes() {
@@ -24,16 +25,21 @@ class JokeList extends Component {
             });
             jokes.push({id: uuid(), text: response.data.joke, votes: 0});
         }
-        this.setState({ jokes: jokes});
-        window.localStorage.setItem(
-            "jokes",
-            JSON.stringify(jokes)
-        )
+        this.setState(st => ({ 
+            loading: false,
+            jokes: [...st.jokes, ...jokes]
+        }),
+        () => window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
+        );
     }
     componentDidMount() {
         if( this.state.jokes.length === 0){
             this.getJokes();
         }
+    }
+
+    handleClick(){
+        this.setState({loading: true}, this.getJokes);  
     }
 
     handleVote(id, delta) {
@@ -42,7 +48,8 @@ class JokeList extends Component {
                 jokes: st.jokes.map(j =>
                     j.id === id ? {...j, votes: j.votes + delta } : j
                     )
-            })
+            }),
+            () => window.localStorage.setItem("jokes", JSON.stringify(this.state.jokes))
         );
     }
 
@@ -58,13 +65,21 @@ class JokeList extends Component {
     // }
    
     render() {
-        return (
+            if(this.state.loading) {
+                return(
+                    <div className="JokeList-spinner">
+                        <img className="far fa-8x fa-cog fa-spin" src="happy.svg" alt="happy"/>
+                        <h1 className="JokeList-title">Loading...</h1>
+                    </div>
+                )
+            }
+            return (
             <div className="JokeList">
                 <div className="JokeList-sidebar">
                     <h1 className="JokeList-title">
                         <span>Dad</span> Jokes
                     </h1>
-                    <button className="JokeList-getMore">New jokes</button>
+                    <button className="JokeList-getMore" onClick={this.handleClick}>New jokes</button>
                 </div>
                 
                 <div className="JokeList-jokes">
@@ -80,7 +95,7 @@ class JokeList extends Component {
                     ))}
                 </div>
             </div>
-        );
+            );
     }
 }
 export default JokeList;

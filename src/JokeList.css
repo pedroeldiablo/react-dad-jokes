@@ -33,3 +33,16 @@
     align-self: center;
     overflow: scroll;
 }
+
+.JokeList-spinner {
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.JokeList-spinner img{
+    width: 100px;
+    height: 100px;
+}
