@@ -94,7 +94,8 @@ class JokeList extends Component {
                     <h1 className="JokeList-title">
                         <span>Dad</span> Jokes
                     </h1>
-                    <button className="JokeList-getMore" onClick={this.handleClick}>New jokes</button>
+                    <img className="JokeList-logo" src="happy.svg" alt="happy"/>
+                    <button className="JokeList-getmore" onClick={this.handleClick}>New jokes</button>
                 </div>
                 
                 <div className="JokeList-jokes">
