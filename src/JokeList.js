@@ -14,7 +14,6 @@ class JokeList extends Component {
         super(props);
         this.state = { jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]")};
         this.seenJokes = new Set(this.state.jokes.map(j => j.text));
-        console.log(this.seenJokes);
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -30,8 +29,7 @@ class JokeList extends Component {
             if(!this.seenJokes.has(newJoke)){
             jokes.push({id: uuid(), text: response.data.joke, votes: 0});
             } else {
-                console.log("found a duplicate");
-                console.log(newJoke);
+                
             }
         }
         this.setState(st => ({ 
